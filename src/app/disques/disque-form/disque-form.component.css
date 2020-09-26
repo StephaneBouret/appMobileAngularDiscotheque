@@ -1,0 +1,9 @@
+.bb {
+  border-bottom: 1px solid gray;
+  margin-bottom: 1em;
+}
+
+mat-progress-bar {
+  margin-top: 0.5em;
+  margin-right: 0.5em;
+}

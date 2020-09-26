@@ -1,0 +1,27 @@
+<form #addDisque="ngForm" >
+  <mat-card>
+      <mat-form-field class="fullWidth">
+      <input
+        matInput
+        type="text"
+        id="newDisque"
+        name="titre"
+        #titre="ngModel"
+        [(ngModel)]="newDisque.title"
+        required
+        pattern="^[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._;\-\,\!\?\'\s]{1,100}$"
+        placeholder="Titre du disque"
+        (keyup)="animButton(addDisque.valid)"
+      >
+      <mat-error>
+          Entrez un titre pour votre nouveau disque.
+        </mat-error>
+    </mat-form-field>
+  </mat-card>
+<button
+  [@buttonAnimation]="buttonState"
+  class="btn waves-effect waves-light purple darken-4"
+  (click)="ajouterDisque(titre.value)" >
+    <i class="material-icons left">add</i> Ajouter un disque
+</button>
+</form>

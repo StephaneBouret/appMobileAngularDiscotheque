@@ -1,0 +1,50 @@
+<div class="row">
+  <div class="col s12 m4 offset-m4">
+    <mat-card class="center">
+        <mat-card-title>Page de connexion</mat-card-title>
+        <mat-card-subtitle> {{ message }} </mat-card-subtitle>
+      <form #loginForm="ngForm" *ngIf="!authService.isLog" (keyup.enter)="login(loginForm.value)" >
+        <mat-form-field class="fullWidth">
+          <label for="email">Email : </label>
+          <input
+            matInput
+            type="email"
+            id="email"
+            name="email"
+            [(ngModel)]="email"
+            required
+          >
+        </mat-form-field>
+        <mat-form-field class="fullWidth">
+          <label for="pw">Mot de passe : </label>
+          <input
+          matInput
+            type="password"
+            id="pw"
+            name="pw"
+            [(ngModel)]="pw"
+            required
+          >
+        </mat-form-field>
+      <mat-card-actions>
+        <button
+          [disabled]="!loginForm.valid"
+          class="waves-effect purple darken-4 btn"
+          (click)="login(loginForm.value)"
+        >Se connecter</button>
+        ou
+        <button
+          [disabled]="!loginForm.valid"
+          class="waves-effect purple darken-4 btn"
+          (click)="createUser(loginForm.value)"
+        >Créer un compte</button>
+      </mat-card-actions>
+    </form>
+    <button
+          class="waves-effect purple darken-4 btn"
+          (click)="logout()"
+          *ngIf="authService.isLog"
+        >Se déconnecter</button>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,42 @@
+<h1 class="center">Disques</h1>
+<div class="container">
+  <div class="row">
+    <div class="col s6">
+      <app-search-disque></app-search-disque>
+    </div>
+    <div class="col s6">
+      <app-add-disque></app-add-disque>
+    </div>
+  </div>
+  <div class="row">
+    <mat-expansion-panel *ngFor="let d of disques" appSurvol>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          <mat-icon>album</mat-icon>
+          {{ d.name | capitalize }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <mat-card [ngClass]="{'row' : largeur }" >
+        <div [ngClass]="{'col s3' : largeur }">
+          <img mat-card-image [src]="d.picture">
+        </div>
+        <div [ngClass]="{'col s9' : largeur }">
+          <mat-card-content>
+              <small> {{ d.created.seconds*1000 | date:"dd/MM/yyyy" }} </small>
+            <mat-list dense>
+              <mat-list-item *ngFor="let categorie of d.cat">
+                <div class="{{ categorie | categoryColor }}">
+                  {{ categorie }}
+                </div>
+              </mat-list-item>
+            </mat-list>
+          </mat-card-content>
+          <mat-card-actions class="center">
+            <a (click)="selectDisque(d.id)">Plus d'infos</a>
+          </mat-card-actions>
+        </div>
+      </mat-card>
+    </mat-expansion-panel>
+  </div>
+</div>
+<!-- {{ disques | json }} -->

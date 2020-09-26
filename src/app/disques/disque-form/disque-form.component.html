@@ -1,0 +1,113 @@
+<form *ngIf="disque" #disqueForm="ngForm" (submit)="onSubmit()" >
+  <div class="row">
+    <div class="col s8 offset-s2" >
+      <mat-card>
+        <mat-form-field class="fullWidth">
+          <input
+            matInput
+            required
+            placeholder="Nom"
+            class="champ"
+            id="name"
+            name="name"
+            #name="ngModel"
+            [(ngModel)]="disque.name"
+            pattern="[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._;\-\,\!\?\'\s]{1,100}"
+            type="text">
+            <mat-error>
+              Le nom de l'artiste est requis (100 caractères maxi).
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="fullWidth">
+          <input
+            matInput
+            type="text"
+            placeholder="Titre"
+            id="title"
+            name="title"
+            #title="ngModel"
+            [(ngModel)]="disque.title"
+            required
+            pattern="[a-zA-Z0-9áàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ._;\-\,\!\?\'\s]{1,100}"
+          >
+          <mat-error>
+            Le titre du disque est requis requis (100 caractères maxi).
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="fullWidth">
+          <input
+            matInput
+            type="text"
+            placeholder="URL de l'image"
+            id="image"
+            name="image"
+            #image="ngModel"
+            [(ngModel)]="disque.picture"
+            readonly
+            required
+          >
+          <mat-error>L'image est obligatoire.</mat-error>
+        </mat-form-field>
+        <div class="fullWidth bb">
+          <p>
+            <label for="file">Choisissez une image</label>
+          </p>
+          <p>
+            <input
+              type="file"
+              id="file"
+              accept="image/*"
+              (change)="uploadFile($event)"
+            >
+          </p>
+          <div class="row">
+            <mat-progress-bar class="col s6 m4" mode="determinate" value="{{ uploadPercent | async }}">
+            </mat-progress-bar>
+            {{ uploadPercent | async | number:'1.0-2' }} %
+          </div>
+        </div>
+         <mat-form-field class="fullWidth">
+          <input
+            matInput
+            type="number"
+            placeholder="Stock"
+            id="stock"
+            name="stock"
+            #stock="ngModel"
+            [(ngModel)]="disque.stock"
+            required
+            pattern="[0-9]{1,2}"
+          >
+          <mat-error>Le nombre de stocks est requis (0-99).</mat-error>
+        </mat-form-field>
+        <mat-list>
+          <label>Catégories</label>
+          <mat-list-item *ngFor="let ctg of categories; let i = index;">
+            <mat-checkbox
+              id="cat{{ i }}"
+              name="cat{{ i }}"
+              [value]="ctg"
+              [checked]="testCategorie(ctg)"
+              [disabled]="testNbreCategorie(ctg)"
+              (change)="modifCategorie($event, ctg)"
+            >
+            <span class="{{ ctg | categoryColor }}">{{ ctg }}</span>
+          </mat-checkbox>
+         </mat-list-item>
+        </mat-list>
+        <div class="divider"></div>
+        <div class="section center">
+            <button
+              [disabled]="!disqueForm.valid"
+              type="submit"
+              class="btn waves-effect waves-light purple darken-4">
+                Valider
+            </button>
+          </div>
+      </mat-card>
+    </div>
+  </div>
+</form>
+<h4 *ngIf="!disque" class="center">
+  <mat-spinner></mat-spinner>
+</h4>

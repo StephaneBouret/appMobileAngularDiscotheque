@@ -1,0 +1,7 @@
+<div *ngIf="disque">
+  <h2 class="center">Edition du disque : {{ disque.name }}</h2>
+  <p class="center">
+    <img class="imgDisc" [src]="disque.picture" >
+  </p>
+  <app-disque-form [disque]="disque" ></app-disque-form>
+</div>
